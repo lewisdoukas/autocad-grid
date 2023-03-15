@@ -1,0 +1,2 @@
+pandas
+ezdxf==0.17
