@@ -4,6 +4,7 @@ import ezdxf
 
 
 
+
 def help():
     print("Text file format:  id,x,y,H")
     print("e.g:\n1,500650.590,4204238.460,351.234\n2,500650.920,4204252.530,350.582")
@@ -17,55 +18,55 @@ def add_crosshair(df, block, crosshair, min_x, min_y, max_x, max_y):
     if df['x'] == min_x and df['y'] == min_y:
         block.add_text(df['x'], dxfattribs= {
             "layer": "grid",
-            "style": "LiberationSerif",
+            "style": "Arial",
             "height": 0.3 }).set_pos((df['x'] - 0.2, df['y'] - 0.6), align= "LEFT")
         
         block.add_text(df['y'], dxfattribs= {
             "layer": "grid",
-            "style": "LiberationSerif",
+            "style": "Arial",
             "rotation": 90,
             "height": 0.3 }).set_pos((df['x'] - 0.3, df['y'] - 0.2), align= "LEFT")
 
     elif df['x'] == max_x and df['y'] == min_y:
         block.add_text(df['x'], dxfattribs= {
             "layer": "grid",
-            "style": "LiberationSerif",
+            "style": "Arial",
             "height": 0.3 }).set_pos((df['x'] + 0.2, df['y'] - 0.6), align= "RIGHT")
         
         block.add_text(df['y'], dxfattribs= {
             "layer": "grid",
-            "style": "LiberationSerif",
+            "style": "Arial",
             "rotation": -90,
             "height": 0.3 }).set_pos((df['x'] + 0.3, df['y'] - 0.2), align= "RIGHT")
     
     elif df['x'] == max_x and df['y'] == max_y:
         block.add_text(df['x'], dxfattribs= {
             "layer": "grid",
-            "style": "LiberationSerif",
+            "style": "Arial",
             "height": 0.3 }).set_pos((df['x'] + 0.2, df['y'] + 0.3), align= "RIGHT")
         
         block.add_text(df['y'], dxfattribs= {
             "layer": "grid",
-            "style": "LiberationSerif",
+            "style": "Arial",
             "rotation": -90,
             "height": 0.3 }).set_pos((df['x'] + 0.3, df['y'] + 0.2), align= "LEFT")
     
     elif df['x'] == min_x and df['y'] == max_y:
         block.add_text(df['x'], dxfattribs= {
             "layer": "grid",
-            "style": "LiberationSerif",
+            "style": "Arial",
             "height": 0.3 }).set_pos((df['x'] - 0.2, df['y'] + 0.3), align= "LEFT")
         
         block.add_text(df['y'], dxfattribs= {
             "layer": "grid",
-            "style": "LiberationSerif",
+            "style": "Arial",
             "rotation": 90,
             "height": 0.3 }).set_pos((df['x'] - 0.3, df['y'] + 0.2), align= "RIGHT")
     
     elif df['y'] == min_y:
         block.add_text(df['x'], dxfattribs= {
             "layer": "grid",
-            "style": "LiberationSerif",
+            "style": "Arial",
             "height": 0.3 }).set_pos((df['x'], df['y'] - 0.6), align= "CENTER")
         
         block.add_lwpolyline([(df['x'], df['y']), (df['x'], df['y'] + crosshair/2)])
@@ -73,7 +74,7 @@ def add_crosshair(df, block, crosshair, min_x, min_y, max_x, max_y):
     elif df['y'] == max_y:
         block.add_text(df['x'], dxfattribs= {
             "layer": "grid",
-            "style": "LiberationSerif",
+            "style": "Arial",
             "height": 0.3 }).set_pos((df['x'], df['y'] + 0.3), align= "CENTER")
         
         block.add_lwpolyline([(df['x'], df['y']), (df['x'], df['y'] - crosshair/2)])
@@ -81,7 +82,7 @@ def add_crosshair(df, block, crosshair, min_x, min_y, max_x, max_y):
     elif df['x'] == min_x:
         block.add_text(df['y'], dxfattribs= {
             "layer": "grid",
-            "style": "LiberationSerif",
+            "style": "Arial",
             "rotation": 90,
             "height": 0.3 }).set_pos((df['x'] - 0.3, df['y']), align= "CENTER")
         
@@ -90,7 +91,7 @@ def add_crosshair(df, block, crosshair, min_x, min_y, max_x, max_y):
     elif df['x'] == max_x:
         block.add_text(df['y'], dxfattribs= {
             "layer": "grid",
-            "style": "LiberationSerif",
+            "style": "Arial",
             "rotation": -90,
             "height": 0.3 }).set_pos((df['x'] + 0.3, df['y']), align= "CENTER")
         
@@ -143,7 +144,8 @@ def create_grid(input_filename, scale):
     # corners_outer = [(min_x - 1, min_y - 1), (min_x - 1, max_y + 1), (max_x + 1, max_y + 1), (max_x + 1, min_y - 1), (min_x - 1, min_y - 1)]
     corners_outer = [(min_x - 0.8, min_y - 0.8), (min_x - 0.8, max_y + 0.8), (max_x + 0.8, max_y + 0.8), (max_x + 0.8, min_y - 0.8), (min_x - 0.8, min_y - 0.8)]
 
-    doc = ezdxf.new(dxfversion= "R2010", setup= True)  
+    doc = ezdxf.new(dxfversion= "R2010")  
+    doc.styles.new("Arial", dxfattribs={"font": "arial.ttf"})
     msp = doc.modelspace()
     doc.layers.new("grid", dxfattribs= {"color": 7}) 
 
